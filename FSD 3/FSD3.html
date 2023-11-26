@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #formBox {
+            background-color: #dadada;
+            padding: 20px;
+            border-radius: 20px;
+            width: 400px;
+        }
+
+        label, input {
+            display: block;
+            margin-bottom: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            height: 30px;
+            border-radius: 8px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        input[type="text"] {
+            padding-left: 15px;
+        }
+
+        input[type="submit"] {
+            background-color: rgb(211, 131, 55);
+            color: white;
+            cursor: pointer;
+            border: none;
+            height: 30px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="formBox">
+        <h2>Form Validation</h2>
+        
+        <form id="myForm" onsubmit="return validateForm()">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <span id="nameError" class="error"></span>
+
+            <label for="college">College Name:</label>
+            <input type="text" id="college" name="college">
+            <span id="collegeError" class="error"></span>
+
+            <label for="roll">Roll Number:</label>
+            <input type="text" id="roll" name="roll">
+            <span id="rollError" class="error"></span>
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email">
+            <span id="emailError" class="error"></span>
+
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone">
+            <span id="phoneError" class="error"></span>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <span id="passwordError" class="error"></span>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword">
+            <span id="confirmPasswordError" class="error"></span>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Reset error messages
+            $(".error").text("");
+
+            // Validate name
+            var name = $("#name").val();
+            if (name === "") {
+                $("#nameError").text("Name is required");
+                return false;
+            }
+
+            // Validate college
+            var college = $("#college").val();
+            if (college === "") {
+                $("#collegeError").text("College Name is required");
+                return false;
+            }
+
+            // Validate roll number
+            var roll = $("#roll").val();
+            if (roll === "") {
+                $("#rollError").text("Roll Number is required");
+                return false;
+            }
+
+            // Validate email
+            var email = $("#email").val();
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                $("#emailError").text("Invalid email address");
+                return false;
+            }
+
+            // Validate phone number
+            var phone = $("#phone").val();
+            var phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone)) {
+                $("#phoneError").text("Invalid phone number");
+                return false;
+            }
+
+            // Validate password
+            var password = $("#password").val();
+            if (password === "") {
+                $("#passwordError").text("Password is required");
+                return false;
+            }
+
+            // Validate confirm password
+            var confirmPassword = $("#confirmPassword").val();
+            if (confirmPassword === "") {
+                $("#confirmPasswordError").text("Confirm Password is required");
+                return false;
+            }
+
+            // Check if password and confirm password match
+            if (password !== confirmPassword) {
+                $("#confirmPasswordError").text("Passwords do not match");
+                return false;
+            }
+
+            // If all validations pass, you can perform additional actions or submit the form
+            alert("Form submitted successfully!");
+            return true;
+        }
+    </script>
+
+</body>
+</html>
